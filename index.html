@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>植物管理系統</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>植物管理系統</h1>
+        <p class="author">製作者: 蘇子容</p>
+<!-- 新增外部連結 -->
+        <p><a href="https://tai2.ntu.edu.tw/" target="_blank" class="button">前往植物百科</a></p>
+        <!-- 新增植物資料 -->
+        <h2>新增植物資料</h2>
+        <form id="add-plant-form">
+            <label>植物名稱: <input type="text" id="plant-name" required></label><br>
+            <label>植物種類: <input type="text" id="plant-species"></label><br>
+            <label>需水量: <input type="number" id="plant-water-requirement" step="0.1" required></label><br>
+            <button type="submit">新增植物</button>
+        </form>
+
+        <!-- 新增土壤監測資料 -->
+        <h2>新增土壤監測資料</h2>
+        <form id="add-soil-form">
+            <label>植物 ID: <input type="number" id="soil-plant-id" required></label><br>
+            <label>土壤濕度: <input type="number" id="soil-moisture" step="0.1" required></label><br>
+            <label>土壤 pH 值: <input type="number" id="soil-ph" step="0.1" required></label><br>
+            <button type="submit">新增土壤資料</button>
+        </form>
+
+        <!-- 新增環境監測資料 -->
+        <h2>新增環境監測資料</h2>
+        <form id="add-environment-form">
+            <label>植物 ID: <input type="number" id="environment-plant-id" required></label><br>
+            <label>溫度: <input type="number" id="environment-temperature" step="0.1" required></label><br>
+            <label>濕度: <input type="number" id="environment-humidity" step="0.1" required></label><br>
+            <button type="submit">新增環境資料</button>
+        </form>
+
+        <!-- 查詢植物資料按鈕和結果顯示區域 -->
+        <button id="get-plants-btn">查詢所有植物資料</button>
+        <div id="results"></div>
+
+        <!-- 製作者名稱 -->
+        <footer>
+            <p>製作者: 蘇子容</p>
+        </footer>
+    </div>
+
+    <script>
+        // 新增植物資料
+        document.getElementById('add-plant-form').addEventListener('submit', event => {
+            event.preventDefault();
+            fetch('/api/add-plant', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: document.getElementById('plant-name').value,
+                    species: document.getElementById('plant-species').value,
+                    water_requirement: parseFloat(document.getElementById('plant-water-requirement').value)
+                })
+            }).then(response => response.json())
+              .then(data => alert(data.message))
+              .catch(error => console.error('Error:', error));
+        });
+
+        // 新增土壤監測資料
+        document.getElementById('add-soil-form').addEventListener('submit', event => {
+            event.preventDefault();
+            fetch('/api/add-soil', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    plant_id: parseInt(document.getElementById('soil-plant-id').value),
+                    moisture_level: parseFloat(document.getElementById('soil-moisture').value),
+                    ph_level: parseFloat(document.getElementById('soil-ph').value)
+                })
+            }).then(response => response.json())
+              .then(data => alert(data.message))
+              .catch(error => console.error('Error:', error));
+        });
+
+        // 新增環境監測資料
+        document.getElementById('add-environment-form').addEventListener('submit', event => {
+            event.preventDefault();
+            fetch('/api/add-environment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    plant_id: parseInt(document.getElementById('environment-plant-id').value),
+                    temperature: parseFloat(document.getElementById('environment-temperature').value),
+                    humidity: parseFloat(document.getElementById('environment-humidity').value)
+                })
+            }).then(response => response.json())
+              .then(data => alert(data.message))
+              .catch(error => console.error('Error:', error));
+        });
+
+        // 查詢並顯示植物資料
+        document.getElementById('get-plants-btn').addEventListener('click', () => {
+            fetch('/api/get-plants')
+                .then(response => response.json())
+                .then(data => displayPlants(data))
+                .catch(error => console.error('Error:', error));
+        });
+
+        // 顯示植物資料的函數
+        function displayPlants(plants) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // 清空之前的結果
+
+            plants.forEach(plant => {
+                const plantInfo = document.createElement('div');
+                plantInfo.textContent = `名稱: ${plant.name}, 種類: ${plant.species}, 需水量: ${plant.water_requirement}`;
+                resultsDiv.appendChild(plantInfo);
+            });
+        }
+    </script>
+</body>
+</html>

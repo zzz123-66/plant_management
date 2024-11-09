@@ -1,12 +1,18 @@
 const express = require('express');
 const mysql = require('mysql');
+const path = require('path');
+const cors = require('cors');
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
+
+// 設定 MySQL 連線
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '950831',
     database: 'plant_management'
 });
 
@@ -14,6 +20,9 @@ db.connect(err => {
     if (err) throw err;
     console.log('已成功連接到 MySQL 資料庫');
 });
+
+// 提供靜態檔案
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 新增植物
 app.post('/api/add-plant', (req, res) => {
@@ -45,6 +54,7 @@ app.post('/api/add-environment', (req, res) => {
     });
 });
 
+// 啟動伺服器
 app.listen(3000, () => {
     console.log('伺服器運行在 http://localhost:3000');
 });

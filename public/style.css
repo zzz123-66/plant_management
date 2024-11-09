@@ -1,0 +1,117 @@
+/* 基本設置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 容器樣式 */
+.container {
+    width: 90%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 標題樣式 */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.author {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* 外部連結 按鈕樣式 */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #c66868;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+
+
+h2 {
+    margin-top: 20px;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+/* 表單樣式 */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* 表單區域樣式 */
+form h2 {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.alert {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}

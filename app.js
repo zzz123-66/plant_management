@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(plantData)
         })
         .then(response => response.json())
-        .then(data => alert(data.message))
+        .then(data => {
+            alert(data.message);
+            plantForm.reset(); // 清空表單欄位
+        })
         .catch(error => console.error('Error:', error));
     });
 
@@ -38,7 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(soilData)
         })
         .then(response => response.json())
-        .then(data => alert(data.message))
+        .then(data => {
+            alert(data.message);
+            soilForm.reset(); // 清空表單欄位
+        })
         .catch(error => console.error('Error:', error));
     });
 
@@ -59,7 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(environmentData)
         })
         .then(response => response.json())
-        .then(data => alert(data.message))
+        .then(data => {
+            alert(data.message);
+            environmentForm.reset(); // 清空表單欄位
+        })
         .catch(error => console.error('Error:', error));
     });
 

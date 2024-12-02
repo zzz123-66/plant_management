@@ -9,10 +9,11 @@ CREATE TABLE IF NOT EXISTS plants (
     plant_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     species VARCHAR(50),
-    water_requirement DECIMAL(5, 2),
-    fertilizer_requirement DECIMAL(5, 2),
+    water_requirement DECIMAL(7, 2),
+    fertilizer_requirement DECIMAL(7, 2),
     sunlight_requirement VARCHAR(20),
     growth_stage VARCHAR(20),
+	notes TEXT,  -- 新增備註欄位
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -20,9 +21,22 @@ CREATE TABLE IF NOT EXISTS plants (
 CREATE TABLE IF NOT EXISTS soil_monitoring (
     soil_id INT AUTO_INCREMENT PRIMARY KEY,
     plant_id INT,
-    moisture_level DECIMAL(5, 2),
-    ph_level DECIMAL(4, 2),
+    moisture_level DECIMAL (20, 2),
+    ph_level DECIMAL(14, 2),
     nutrient_level DECIMAL(5, 2),
+    soil_type ENUM(
+        '弱育土 (Inceptisols)',
+        '淋溶土 (Alfisols)',
+        '極育土 (Ultisols)',
+        '新成土 (Entisols)',
+        '黑沃土 (Mollisols)',
+        '灰燼土/火山灰土 (Andisols)',
+        '膨轉土 (Vertisols)',
+        '有機質土 (Histosols)',
+        '淋澱土 (Spodosols)',
+        '氧化物土 (Oxisols)',
+        '旱境土 (Aridisols)'
+    ) NULL, -- 新增土壤種類欄位
     recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 );
@@ -34,6 +48,8 @@ CREATE TABLE IF NOT EXISTS environment_monitoring (
     temperature DECIMAL(4, 2),
     humidity DECIMAL(4, 2),
     light_intensity DECIMAL(6, 2),
+    location VARCHAR(50), -- 新增基地位置欄位
+    notes TEXT,           -- 新增備註欄位
     recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (plant_id) REFERENCES plants(plant_id)
 );
